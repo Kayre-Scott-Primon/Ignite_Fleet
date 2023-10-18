@@ -1,4 +1,4 @@
-package com.ignitefleet;
+package com.kscottp.ignitefleet;
 
 import android.os.Build;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.ignitefleet;
+package com.kscottp.ignitefleet;
 
 import android.app.Application;
 import android.content.res.Configuration;

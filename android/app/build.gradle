@@ -81,9 +81,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.ignitefleet'
+    namespace 'com.kscottp.ignitefleet'
     defaultConfig {
-        applicationId 'com.ignitefleet'
+        applicationId 'com.kscottp.ignitefleet'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

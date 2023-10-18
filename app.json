@@ -1,19 +1,23 @@
 {
   "expo": {
-    "name": "igniteFleet",
-    "slug": "igniteFleet",
+    "name": "ignitefleet",
+    "slug": "ignitefleet",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
+    "scheme": "ignitefleet",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
       "backgroundColor": "#202024"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.kscottp.ignitefleet",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
@@ -21,7 +25,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#202024"
       },
-      "package": "com.ignitefleet",
+      "package": "com.kscottp.ignitefleet",
       "googleServicesFile": "./google-services.json"
     },
     "web": {
