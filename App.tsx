@@ -5,7 +5,7 @@ import {
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
-import theme from "./src/theme";
+import theme from "./src/theme/index";
 
 import { SignIn } from "./src/screens/SignIn";
 import { Loading } from "./src/components/Loading";
