@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import {
-  GoogleSignin
-} from "@react-native-google-signin/google-signin";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 import { Container, Slogan, Title } from "./styles";
 import { EXPO_CLIENT_ID } from "@env";
 
 import backgroundImg from "../../assets/background.png";
 import { Button } from "../../components/Button";
+import { Realm, useApp } from "@realm/react";
+import { Alert } from "react-native";
 
 interface UserInfo {
   idToken: string | null;
@@ -28,9 +28,11 @@ export function SignIn() {
     scopes: [],
     user: { id: "", name: "", email: "", photo: "" },
   });
-  //const app = useApp();
+
+  const app = useApp();
 
   async function googleSignin() {
+    setIsAuthenticating(true);
     try {
       await GoogleSignin.hasPlayServices();
       const user = await GoogleSignin.signIn();
@@ -38,12 +40,13 @@ export function SignIn() {
       setUserInfo(user);
     } catch (error) {
       console.log("ERRO AO LOGAR NO GOOGLE", error);
+      setIsAuthenticating(false);
     }
   }
 
   useEffect(() => {
     GoogleSignin.configure({
-      scopes: ['email', 'profile'],
+      scopes: ["email", "profile"],
       webClientId: EXPO_CLIENT_ID,
       offlineAccess: true,
       //forceCodeForRefreshToken: true,
@@ -53,11 +56,11 @@ export function SignIn() {
   useEffect(() => {
     console.log("userInfo", userInfo);
     if (userInfo?.idToken !== "" && userInfo?.idToken !== null) {
-      //const credentials = Realm.Credentials.jwt(userInfo.idToken);
-      /*app.logIn(credentials).catch((error) => {
-        console.log("🚀 ~ file: index.tsx:84 ~ useEffect ~ error:", error)
+      const credentials = Realm.Credentials.jwt(userInfo.idToken);
+      app.logIn(credentials).catch((error) => {
+        console.log(" error login with the realm:", error)
         Alert.alert(`erro ao logar ${error}`)
-      })*/
+      })
     }
   }, [userInfo]);
 
