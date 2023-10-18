@@ -43,8 +43,10 @@ export function SignIn() {
 
   useEffect(() => {
     GoogleSignin.configure({
+      scopes: ['email', 'profile'],
       webClientId: EXPO_CLIENT_ID,
       offlineAccess: true,
+      //forceCodeForRefreshToken: true,
     });
   }, []);
 
