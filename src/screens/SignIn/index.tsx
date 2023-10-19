@@ -58,9 +58,9 @@ export function SignIn() {
     if (userInfo?.idToken !== "" && userInfo?.idToken !== null) {
       const credentials = Realm.Credentials.jwt(userInfo.idToken);
       app.logIn(credentials).catch((error) => {
-        console.log(" error login with the realm:", error)
-        Alert.alert(`erro ao logar ${error}`)
-      })
+        console.log(" error login with the realm:", error);
+        Alert.alert(`erro ao logar ${error}`);
+      });
     }
   }, [userInfo]);
 
