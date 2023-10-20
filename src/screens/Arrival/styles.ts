@@ -37,7 +37,17 @@ export const Footer = styled.View`
   width: 100%;
   flex-direction: row;
   gap: 16px;
-  
+
   padding: 32px;
   margin-top: 32px;
+`;
+
+export const AsyncMessage = styled.Text`
+  color: ${({ theme }) => theme.COLORS.GRAY_300};
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+
+  text-align: center;
+  flex: 1;
+  margin: 32px;
 `;

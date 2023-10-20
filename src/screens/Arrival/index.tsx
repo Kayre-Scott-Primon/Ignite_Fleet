@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { X } from "phosphor-react-native";
 import { Alert } from "react-native";
 import { BSON } from "realm";
 
 import {
+  AsyncMessage,
   Container,
   Content,
   Description,
@@ -16,6 +18,7 @@ import { Button } from "../../components/Button";
 import { ButtonIcon } from "../../components/ButtonIcon";
 import { useObject, useRealm } from "../../libs/realm";
 import { Historic } from "../../libs/realm/schemas/Historic";
+import { getLastAsyncTimestamp } from "../../libs/asyncStorage/syncStorage";
 
 type RoutePramsProps = {
   id: string;
@@ -30,6 +33,7 @@ export function Arrival() {
   const { goBack } = useNavigation();
 
   const title = historic?.status === "departure" ? "Chegada" : "Detalhes";
+  const [dataNotSynced, setDataNotSynced] = useState(false);
 
   function handleRemoveVehicleUsage() {
     Alert.alert(
@@ -82,6 +86,12 @@ export function Arrival() {
     }
   }
 
+  useEffect(() => {
+    getLastAsyncTimestamp().then((lastSync) => {
+      setDataNotSynced(historic!.updated_at.getTime() > lastSync);
+    });
+  }, []);
+
   return (
     <Container>
       <Header title={title} />
@@ -100,6 +110,14 @@ export function Arrival() {
           <ButtonIcon icon={X} onPress={handleRemoveVehicleUsage} />
           <Button title="Registrar chegada" onPress={handleArrivalRegister} />
         </Footer>
+      )}
+
+      {dataNotSynced && (
+        <AsyncMessage>
+          Sincronização de
+          {historic?.status === "departure" ? " partida " : " chegada "}
+          pendente
+        </AsyncMessage>
       )}
     </Container>
   );

@@ -21,7 +21,7 @@ npx expo start --clear
 - Have a generator method to create a realm object
 - Can to define fields odd schema you use to search an object
 - There are realms hooks to use for do the operations
-- Realm behaviors with trsactions
+- Realm behaviors with trsactions, if get error, realm doesn't save anything
 - Realm is orientaded an object
 - Use refferencies
 - Use state?. to indicates this state can be undefined
@@ -30,3 +30,7 @@ npx expo start --clear
 - In types, use more types for one state
 - Works with Realm to login follows
 - Works with Regex
+- Sync with Atlas Mongo DB, good to see user local DB
+- Sync works when turn on online, analysing status device
+- Realm returns the percentage synced
+
