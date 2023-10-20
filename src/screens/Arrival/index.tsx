@@ -66,16 +66,16 @@ export function Arrival() {
           "Erro",
           "Não foi possível obter os dados para registrar a chegada do veículo"
         );
+      } else {
+        realm.write(() => {
+          historic.status = "arrival";
+          historic.updated_at = new Date();
+        });
+
+        Alert.alert("Sucesso", "Chegada do veículo registrada com sucesso");
+
+        goBack();
       }
-
-      realm.write(() => {
-        historic.status = "arrival";
-        historic.updated_at = new Date();
-      });
-
-      Alert.alert("Sucesso", "Chegada do veículo registrada com sucesso");
-
-      goBack();
     } catch (err) {
       Alert.alert("Erro", "Não foi possível registrar a chegada do veículo");
       console.log(err);
