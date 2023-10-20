@@ -13,13 +13,13 @@ export const Container = styled.View`
 export const Label = styled.Text`
   color: ${({ theme }) => theme.COLORS.GRAY_300};
   font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
-  font-weight: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
 `;
 
 export const Input = styled.TextInput`
   color: ${({ theme }) => theme.COLORS.GRAY_200};
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
-  font-weight: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
 
   vertical-align: top;
   margin-top: 16px;
