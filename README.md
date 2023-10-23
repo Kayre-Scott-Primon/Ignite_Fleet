@@ -16,6 +16,10 @@ npx expo run:android
 
 npx expo start --clear
 
+## When modify native code
+
+npx expo prebuild
+
 ## interestings things
 
 - Have a generator method to create a realm object
@@ -33,4 +37,3 @@ npx expo start --clear
 - Sync with Atlas Mongo DB, good to see user local DB
 - Sync works when turn on online, analysing status device
 - Realm returns the percentage synced
-
