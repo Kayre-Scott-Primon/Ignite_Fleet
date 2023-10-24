@@ -11,6 +11,7 @@ import {
   LocationAccuracy,
   LocationSubscription,
   LocationObjectCoords,
+  requestBackgroundPermissionsAsync,
 } from "expo-location";
 import { Car } from "phosphor-react-native";
 
@@ -29,6 +30,7 @@ import { Container, Content, Message } from "./styles";
 import { Loading } from "../../components/Loading";
 import { LocationInfo } from "../../components/LocationInfo";
 import { Map } from "../../components/Map";
+import { startLocationTask } from "../../tasks/backgroundLocationTask";
 
 export function Departure() {
   const [description, setDescription] = useState("");
@@ -49,7 +51,7 @@ export function Departure() {
   const descriptionRef = useRef<TextInput>(null);
   const licensePlateRef = useRef<TextInput>(null);
 
-  function handleDepartureRegister() {
+  async function handleDepartureRegister() {
     try {
       if (!licensePlateValidate(licensePlate)) {
         licensePlateRef.current?.focus();
@@ -67,7 +69,26 @@ export function Departure() {
         );
       }
 
+      if (!currentCoords?.latitude && !currentCoords?.longitude) {
+        return Alert.alert(
+          "Localização inválida",
+          "Não foi possível obter a localização atual, por favor, tente mais tarde"
+        );
+      }
+
       setIsResgistering(true);
+
+      const backgroundPermissions = await requestBackgroundPermissionsAsync();
+
+      if (!backgroundPermissions.granted) {
+        setIsResgistering(false);
+        return Alert.alert(
+          "Permissão de localização",
+          "Você precisa permitir que o aplicativo tenha acesso a localização em segundo plano para acessar essa funcionalidade. Por favor, acesse as configurações do seu dispositivo para conceder a permissão ao aplicativo."
+        );
+      }
+
+      await startLocationTask();
 
       realm.write(() => {
         realm.create(

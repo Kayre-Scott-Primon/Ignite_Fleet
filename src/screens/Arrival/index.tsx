@@ -19,6 +19,7 @@ import { ButtonIcon } from "../../components/ButtonIcon";
 import { useObject, useRealm } from "../../libs/realm";
 import { Historic } from "../../libs/realm/schemas/Historic";
 import { getLastAsyncTimestamp } from "../../libs/asyncStorage/syncStorage";
+import { stopLocationTask } from "../../tasks/backgroundLocationTask";
 
 type RoutePramsProps = {
   id: string;
@@ -63,7 +64,7 @@ export function Arrival() {
     goBack();
   }
 
-  function handleArrivalRegister() {
+  async function handleArrivalRegister() {
     try {
       if (!historic) {
         Alert.alert(
@@ -71,6 +72,7 @@ export function Arrival() {
           "Não foi possível obter os dados para registrar a chegada do veículo"
         );
       } else {
+        await stopLocationTask();
         realm.write(() => {
           historic.status = "arrival";
           historic.updated_at = new Date();
