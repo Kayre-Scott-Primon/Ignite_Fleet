@@ -54,7 +54,7 @@ export function Map({ coordinates, ...rest }: Props) {
           <Polyline
             coordinates={[...coordinates]}
             strokeColor={COLORS.GRAY_700}
-            strokeWidth={8}
+            strokeWidth={7}
           />
         </>
       )}

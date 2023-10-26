@@ -26,11 +26,12 @@ import { TextAreaInput } from "../../components/TextAreaInput";
 import { licensePlateValidate } from "../../utils/licensePlateValidate";
 import { getAddressLocation } from "../../utils/getAddressLocation";
 
-import { Container, Content, Message } from "./styles";
+import { Container, Content, Message, MessageContant } from "./styles";
 import { Loading } from "../../components/Loading";
 import { LocationInfo } from "../../components/LocationInfo";
 import { Map } from "../../components/Map";
 import { startLocationTask } from "../../tasks/backgroundLocationTask";
+import { openSettings } from "../../utils/openSettings";
 
 export function Departure() {
   const [description, setDescription] = useState("");
@@ -84,7 +85,8 @@ export function Departure() {
         setIsResgistering(false);
         return Alert.alert(
           "Permissão de localização",
-          "Você precisa permitir que o aplicativo tenha acesso a localização em segundo plano para acessar essa funcionalidade. Por favor, acesse as configurações do seu dispositivo para conceder a permissão ao aplicativo."
+          "Você precisa permitir que o aplicativo tenha acesso a localização em segundo plano para acessar essa funcionalidade. Por favor, acesse as configurações do seu dispositivo para conceder a permissão ao aplicativo.",
+          [{ text: "Abrir configurações", onPress: () => openSettings() }]
         );
       }
 
@@ -97,6 +99,13 @@ export function Departure() {
             user_id: user!.id,
             license_plate: licensePlate,
             description,
+            coords: [
+              {
+                latitude: currentCoords.latitude,
+                longitude: currentCoords.longitude,
+                timestamp: new Date().getTime(),
+              },
+            ],
           })
         );
       });
@@ -154,11 +163,14 @@ export function Departure() {
     return (
       <Container>
         <Header title="Saída" />
-        <Message>
-          Você precisa permitir que o aplicativo tenha acesso a localização para
-          acessar essa funcionalidade. Por favor, acesse as configurações do seu
-          dispositivo para conceder a permissão ao aplicativo.
-        </Message>
+        <MessageContant>
+          <Message>
+            Você precisa permitir que o aplicativo tenha acesso a localização
+            para acessar essa funcionalidade. Por favor, acesse as configurações
+            do seu dispositivo para conceder a permissão ao aplicativo.
+          </Message>
+          <Button title="Abrir configurações" onPress={openSettings} />
+        </MessageContant>
       </Container>
     );
   }
